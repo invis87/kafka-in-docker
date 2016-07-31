@@ -1,0 +1,42 @@
+version: '2'
+services:
+  zookeeper:
+    image: jplock/zookeeper:3.4.6
+    ports:
+      - "2181:2181"
+    networks:
+      - kafka-network
+    container_name: zookeeper
+  kafka0:
+    image: ches/kafka
+    ports:
+      - "9092:9092"
+    networks:
+      - kafka-network
+    environment:
+      KAFKA_ADVERTISED_HOST_NAME: kafka0
+      KAFKA_BROKER_ID: 0
+      KAFKA_PORT: 9092
+      KAFKA_ADVERTISED_PORT: 9092
+      ZOOKEEPER_IP: zookeeper
+    container_name: kafka0
+    depends_on:
+      - zookeeper
+  kafka1:
+      image: ches/kafka
+      ports:
+        - "9093:9093"
+      networks:
+        - kafka-network
+      environment:
+        KAFKA_ADVERTISED_HOST_NAME: kafka1
+        KAFKA_BROKER_ID: 1
+        KAFKA_PORT: 9093
+        KAFKA_ADVERTISED_PORT: 9093
+        ZOOKEEPER_IP: zookeeper
+      container_name: kafka1
+      depends_on:
+        - zookeeper
+networks:
+  kafka-network:
+    driver: bridge

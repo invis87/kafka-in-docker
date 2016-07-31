@@ -21,17 +21,28 @@ It will:
 Those commands use hostnames because we start them inside docker-network `docker_kafka-network`.
 
 Topic creation: 
-```docker run --rm -i --net=docker_kafka-network ches/kafka \
-/kafka/bin/kafka-topics.sh --create --zookeeper zookeeper:2181 --replication-factor 2 --partitions 3 --topic test```
+```
+docker run --rm -i --net=docker_kafka-network ches/kafka \
+/kafka/bin/kafka-topics.sh --create --zookeeper zookeeper:2181 --replication-factor 2 --partitions 3 --topic test
+```
 
-Describe topic: ```docker run --rm -i --net=docker_kafka-network ches/kafka \
-/kafka/bin/kafka-topics.sh --describe --zookeeper zookeeper:2181 --topic test```
+Describe topic: 
+```
+docker run --rm -i --net=docker_kafka-network ches/kafka \
+/kafka/bin/kafka-topics.sh --describe --zookeeper zookeeper:2181 --topic test
+```
 
-Console producer: ```docker run --rm -i --net=docker_kafka-network ches/kafka \
-/kafka/bin/kafka-console-producer.sh --topic test --broker-list kafka0:9092,kafka1:9093```
+Console producer: 
+```
+docker run --rm -i --net=docker_kafka-network ches/kafka \
+/kafka/bin/kafka-console-producer.sh --topic test --broker-list kafka0:9092,kafka1:9093
+```
 
-Console consumer: ```docker run --rm -i --net=docker_kafka-network ches/kafka \
-/kafka/bin/kafka-console-consumer.sh --zookeeper zookeeper:2181 --topic test```
+Console consumer: 
+```
+docker run --rm -i --net=docker_kafka-network ches/kafka \
+/kafka/bin/kafka-console-consumer.sh --zookeeper zookeeper:2181 --topic test
+```
 
 ## Scala producer/consumer
 Inside `<project-dir>` start `sbt`.

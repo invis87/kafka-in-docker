@@ -7,6 +7,7 @@ You need  `docker`, `docker-compose`, `sbt` installed.
 
 To work locally add this lines to your `hosts` file:
 ```
+127.0.0.1       kafka2
 127.0.0.1       kafka1
 127.0.0.1       kafka0
 ```

@@ -1,40 +1,51 @@
-version: '2'
+version: '3'
 services:
   zookeeper:
-    image: jplock/zookeeper:3.4.6
+    image: confluentinc/cp-zookeeper
     ports:
       - "2181:2181"
     networks:
       - kafka-network
     container_name: zookeeper
+    environment: 
+      ZOOKEEPER_CLIENT_PORT: 2181
   kafka0:
-    image: ches/kafka
+    image: confluentinc/cp-kafka
     ports:
       - "9092:9092"
     networks:
       - kafka-network
     environment:
-      KAFKA_ADVERTISED_HOST_NAME: kafka0
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka0:9092
       KAFKA_BROKER_ID: 0
-      KAFKA_PORT: 9092
-      KAFKA_ADVERTISED_PORT: 9092
-      ZOOKEEPER_IP: zookeeper
     container_name: kafka0
     depends_on:
       - zookeeper
   kafka1:
-      image: ches/kafka
+      image: confluentinc/cp-kafka
       ports:
         - "9093:9093"
       networks:
         - kafka-network
       environment:
-        KAFKA_ADVERTISED_HOST_NAME: kafka1
+        KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+        KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka1:9093
         KAFKA_BROKER_ID: 1
-        KAFKA_PORT: 9093
-        KAFKA_ADVERTISED_PORT: 9093
-        ZOOKEEPER_IP: zookeeper
       container_name: kafka1
+      depends_on:
+        - zookeeper
+  kafka2:
+      image: confluentinc/cp-kafka
+      ports:
+        - "9094:9094"
+      networks:
+        - kafka-network
+      environment:
+        KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+        KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka2:9094
+        KAFKA_BROKER_ID: 2
+      container_name: kafka2
       depends_on:
         - zookeeper
 networks:

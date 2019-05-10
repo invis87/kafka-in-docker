@@ -4,13 +4,6 @@ This project contains 4 classes: 2 kafka producers and 2 consumers. All is writt
 Also it contains `docker-compose.yml` with one zookeeper and 2 kafka brokers inside.
 ## Requirements
 You need  `docker`, `docker-compose`, `sbt` installed.
-
-To work locally add this lines to your `hosts` file:
-```
-127.0.0.1       kafka2
-127.0.0.1       kafka1
-127.0.0.1       kafka0
-```
 ## Run
 To start go to `<project-dir>/docker/` and execute `docker-compose up -d` command. 
 It will:
